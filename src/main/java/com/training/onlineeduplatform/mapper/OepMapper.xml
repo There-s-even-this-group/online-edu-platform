@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.training.onlineeduplatform.mapper.OepMapper">
+    <select id="loadUserByUsername" resultType="com.training.onlineeduplatform.model.Oep">
+        select * from oep where username=#{username}
+    </select>
+    <select id="getUserRolesByUid" resultType="com.training.onlineeduplatform.model.Role">
+        select r.* from role r,oep_role rr where r.id=rr.roleid and rr.rmid=#{id}
+    </select>
+    <insert id="saveNewRm">
+        INSERT INTO oep VALUES(default,#{name},#{username},#{password},0,0,DEFAULT,DEFAULT);
+        INSERT INTO oep_role VALUES(DEFAULT,(SELECT id FROM oep WHERE username=#{username}),(select  id from role where nameZH=#{role}));
+    </insert>
+</mapper>
