@@ -14,8 +14,7 @@ import java.io.PrintWriter;
 /**
  * Created on 2020/1/10.
  *
- * 这个是干嘛的我也记不清了，要用的时候我再来写一下
- * 登录用
+ * 返回授权失败的信息
  *
  * @author Yue Wu
  */

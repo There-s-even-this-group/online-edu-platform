@@ -15,6 +15,8 @@ import java.util.Iterator;
 /**
  * Created on 2020/1/10.
  *
+ * 动态配置权限
+ *
  * @author Yue Wu
  */
 @Component

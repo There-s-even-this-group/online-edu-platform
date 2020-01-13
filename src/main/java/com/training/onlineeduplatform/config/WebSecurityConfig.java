@@ -34,6 +34,8 @@ import java.io.PrintWriter;
 /**
  * Created on 2020/1/10.
  *
+ * SpringSecurity配置文件
+ *
  * @author Yue Wu
  */
 @Configuration
@@ -61,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/getAll.do","/login", "/register.do", "/static/**", "/login_p", "/favicon.ico");
+        web.ignoring().antMatchers("/getAll.do", "/register.do", "/static/**", "/login_p", "/favicon.ico");
     }
 
     @Override
@@ -139,7 +141,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .permitAll()
                 .and().csrf().disable()
-                .exceptionHandling().accessDeniedHandler(deniedHandler);
-        http.sessionManagement().maximumSessions(1).expiredUrl("/login");
+                .exceptionHandling().accessDeniedHandler(deniedHandler)
+                .and()
+                .sessionManagement().maximumSessions(1).expiredUrl("/login");
     }
 }

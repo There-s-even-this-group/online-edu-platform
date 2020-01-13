@@ -14,6 +14,7 @@ import java.util.List;
  *
  * 用户实体类
  * Spring Security框架依赖
+ * 用于实现用户认证
  *
  * @author Yue Wu
  */
