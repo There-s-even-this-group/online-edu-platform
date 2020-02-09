@@ -3,6 +3,8 @@ package com.training.onlineeduplatform.service;
 import com.training.onlineeduplatform.mapper.TfrArticleMapper;
 import com.training.onlineeduplatform.model.TfrArticle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,11 +13,13 @@ import java.util.List;
  *
  * @author Hongwe Xiong
  */
+@Service
+@Transactional
 public class TfrArticleService {
     @Autowired
     TfrArticleMapper tfrArticleMapper;
-    public List<TfrArticle> getTfrArticle(TfrArticle tfrArticle){
-        return tfrArticleMapper.getTfrArticle(tfrArticle);
+    public List<TfrArticle> getTfrArticle(String articleType){
+        return tfrArticleMapper.getTfrArticle(articleType);
     }
     public void deleteTrfArticle(TfrArticle tfrArticle){
         tfrArticleMapper.deleteTrfArticle(tfrArticle);
@@ -25,5 +29,8 @@ public class TfrArticleService {
     }
     public int updateTfrArticle(TfrArticle tfrArticle){
         return tfrArticleMapper.updateTfrArticle(tfrArticle);
+    }
+    public List<TfrArticle> getCertainTfrArticle(int id){
+        return tfrArticleMapper.getCertainTfrArticle(id);
     }
 }
