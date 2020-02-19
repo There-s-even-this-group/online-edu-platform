@@ -27,12 +27,14 @@ public class ExceptionController {
     // 捕捉shiro的异常
     @ExceptionHandler(ShiroException.class)
     public ResultMap handle401() {
+        resultMap.clear();
         return resultMap.fail().code(401).message("您没有权限访问！");
     }
 
     // 捕捉其他所有异常
     @ExceptionHandler(Exception.class)
     public ResultMap globalException(HttpServletRequest request, Throwable ex) {
+        resultMap.clear();
         return resultMap.fail()
                 .code(getStatus(request).value())
                 .message("访问出错，无法访问: " + ex.getMessage());

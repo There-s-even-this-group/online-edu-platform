@@ -6,6 +6,8 @@ import com.training.onlineeduplatform.model.User;
 import com.training.onlineeduplatform.service.UserService;
 import com.training.onlineeduplatform.util.JWTUtil;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
@@ -29,7 +31,7 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    private static String salt="1x2j3x4y5w6t";
+    private final static String salt="1x2j3x4y5w6t";
 
     public LoginController(ResultUserInfMap resultUserInfMap) {
         this.resultUserInfMap = resultUserInfMap;
@@ -37,16 +39,19 @@ public class LoginController {
 
     @GetMapping(value = "/notLogin")
     public ResultMap notLogin() {
+        resultMap.clear();
         return resultMap.success().message("您尚未登陆！");
     }
 
     @GetMapping(value = "/notRole")
     public ResultMap notRole() {
+        resultMap.clear();
         return resultMap.success().message("您没有权限！");
     }
 
     @GetMapping(value = "/logout")
     public ResultMap logout() {
+        resultMap.clear();
         Subject subject = SecurityUtils.getSubject();
         //注销
         subject.logout();
@@ -64,6 +69,7 @@ public class LoginController {
                            @RequestParam("password") String password) {
         String realPassword = userService.getPassword(username);
         password = md5SaltEncode(password);
+        resultMap.clear();
         if (realPassword == null) {
             return resultMap.fail().code(401).message("用户名错误");
         } else if (!realPassword.equals(password)) {
@@ -78,6 +84,7 @@ public class LoginController {
      *
      * @param username 用户名
      * @param password 密码
+     * @param email 邮箱
      * @param role 权限
      * @return
      */
@@ -86,22 +93,32 @@ public class LoginController {
                               @RequestParam("password") String password,
                               @RequestParam("email") String email,
                               @RequestParam("role") String role) {
+        resultMap.clear();
         String md5Password = md5SaltEncode(password);
         userService.addUser(username,md5Password,email,role);
         return resultMap.success().code(200).message("注册成功！");
     }
 
-    @GetMapping("/getInf/{username}")
-    public ResultUserInfMap getUser(@PathVariable String username){
+    /**
+     * 获取用户信息
+     * @param token 凭证
+     * @return
+     */
+    @GetMapping("/getInf")
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public ResultUserInfMap getUser(@RequestHeader String token){
+        String username = JWTUtil.getUsername(token);
         User user = userService.getUserInf(username);
         List<String> list = new ArrayList<>();
         list.add(user.getRole().getRole());
         list.add(user.getRole().getPermission());
+        resultUserInfMap.clear();
         return resultUserInfMap.username(user.getUsername()).email(user.getEmail()).role(list).ban(user.getBan());
     }
 
     @RequestMapping(path = "/unauthorized/{message}")
     public ResultMap unauthorized(@PathVariable String message) throws UnsupportedEncodingException {
+        resultMap.clear();
         return resultMap.success().code(401).message(message);
     }
 

@@ -53,6 +53,7 @@ public class TestController {
     @GetMapping("/getMessage")
     @RequiresRoles(logical = Logical.OR, value = {"user", "admin"})
     public ResultMap getMessage() {
+        resultMap.clear();
         return resultMap.success().code(200).message("成功获得信息！");
     }
 
