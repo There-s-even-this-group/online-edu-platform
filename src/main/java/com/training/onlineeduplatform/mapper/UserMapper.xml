@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.training.onlineeduplatform.mapper.UserMapper">
+    <select id="getPassword" parameterType="String" resultType="String">
+        SELECT password
+        FROM op
+        WHERE username = #{username}
+    </select>
+
+    <select id="getRole" parameterType="String" resultType="String">
+        SELECT role
+        FROM role
+        WHERE id = (select id from op where username = #{username})
+    </select>
+
+    <update id="updatePassword" parameterType="String">
+        UPDATE op
+        SET password = #{password}
+        WHERE username = #{username}
+    </update>
+
+    <select id="getUser" resultType="String">
+        SELECT username
+        FROM op
+    </select>
+
+    <update id="banUser" parameterType="String">
+        UPDATE op
+        SET ban = 1
+        WHERE username = #{username}
+    </update>
+
+    <select id="checkUserBanStatus" parameterType="String" resultType="int">
+        SELECT ban
+        FROM op
+        WHERE username = #{username}
+    </select>
+
+    <select id="getRolePermission" parameterType="String" resultType="String">
+        SELECT permission
+        FROM role
+        WHERE id = (select role from op where username=#{username})
+    </select>
+
+    <select id="getPermission" parameterType="String" resultType="String">
+        SELECT permission
+        FROM role
+        WHERE id = (select role from op where username=#{username})
+    </select>
+
+    <insert id="addUser" parameterType="String">
+        INSERT
+        into op
+        values (default,#{username},#{password},#{email},#{role},default)
+    </insert>
+
+    <select id="getUserInf" parameterType="String" resultMap="UserInf">
+        select * from op as u,role as r where u.username= #{username} and u.op_role = r.id
+    </select>
+    <resultMap id="UserInf" type="com.training.onlineeduplatform.model.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="ban" column="ban"/>
+        <association property="role" javaType="com.training.onlineeduplatform.model.Role">
+            <id property="id" column="id"/>
+            <result property="role" column="role"/>
+            <result property="permission" column="permission"/>
+        </association>
+    </resultMap>
+</mapper>
