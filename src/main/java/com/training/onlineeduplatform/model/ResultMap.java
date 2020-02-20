@@ -33,4 +33,9 @@ public class ResultMap extends HashMap<String, Object> {
         this.put("message", message);
         return this;
     }
+
+    public ResultMap token(Object token) {
+        this.put("token", token);
+        return this;
+    }
 }

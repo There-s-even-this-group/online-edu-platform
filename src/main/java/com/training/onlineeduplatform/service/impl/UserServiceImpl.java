@@ -1,6 +1,7 @@
 package com.training.onlineeduplatform.service.impl;
 
 import com.training.onlineeduplatform.mapper.UserMapper;
+import com.training.onlineeduplatform.model.User;
 import com.training.onlineeduplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,7 +60,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(String username, String password, String role) {
-        userMapper.addUser(username,password,role);
+    public void addUser(String username, String password, String email, String role) {
+        userMapper.addUser(username,password, email,role);
+    }
+
+    @Override
+    public User getUserInf(String username) {
+        return userMapper.getUserInf(username);
+    }
+
+    @Override
+    public String getUserId(String username) {
+        return userMapper.getUserId(username);
     }
 }

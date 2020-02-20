@@ -1,6 +1,8 @@
 package com.training.onlineeduplatform.service;
 
 
+import com.training.onlineeduplatform.model.User;
+
 import java.util.List;
 
 /**
@@ -55,5 +57,15 @@ public interface UserService {
     /**
      * 添加用户
      */
-    void addUser(String username,String password,String role);
+    void addUser(String username,String password,String email,String role);
+
+    /**
+     * 获取用户信息
+     */
+    User getUserInf(String username);
+
+    /**
+     * 获取用户id
+     */
+    String getUserId(String username);
 }

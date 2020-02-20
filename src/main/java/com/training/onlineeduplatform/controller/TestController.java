@@ -1,15 +1,18 @@
 package com.training.onlineeduplatform.controller;
 
 import com.training.onlineeduplatform.model.ResultMap;
+import com.training.onlineeduplatform.model.ResultUserInfMap;
+import com.training.onlineeduplatform.model.User;
 import com.training.onlineeduplatform.service.UserService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created on 2020/2/13.
@@ -25,10 +28,23 @@ public class TestController {
     private final ResultMap resultMap;
 
     @Autowired
+    private final ResultUserInfMap resultUserInfMap;
+
+    @Autowired
     private UserService userService;
 
-    public TestController(ResultMap resultMap) {
+    public TestController(ResultMap resultMap, ResultUserInfMap resultUserInfMap) {
         this.resultMap = resultMap;
+        this.resultUserInfMap = resultUserInfMap;
+    }
+
+    @GetMapping("/getInf/{username}")
+    public ResultUserInfMap getUser(@PathVariable String username){
+        User user = userService.getUserInf(username);
+        List<String> list = new ArrayList<>();
+        list.add(user.getRole().getRole());
+        list.add(user.getRole().getPermission());
+        return resultUserInfMap.username(user.getUsername()).email(user.getEmail()).role(list).ban(user.getBan());
     }
 
     /**
@@ -37,6 +53,7 @@ public class TestController {
     @GetMapping("/getMessage")
     @RequiresRoles(logical = Logical.OR, value = {"user", "admin"})
     public ResultMap getMessage() {
+        resultMap.clear();
         return resultMap.success().code(200).message("成功获得信息！");
     }
 

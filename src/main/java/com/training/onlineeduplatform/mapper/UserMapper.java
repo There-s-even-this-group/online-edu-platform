@@ -1,5 +1,6 @@
 package com.training.onlineeduplatform.mapper;
 
+import com.training.onlineeduplatform.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -58,5 +59,15 @@ public interface UserMapper {
     /**
      * 添加用户
      */
-    void addUser(String username,String password,String role);
+    void addUser(String username,String password,String email,String role);
+
+    /**
+     * 获取用户信息
+     */
+    User getUserInf(String username);
+
+    /**
+     * 获取用户id
+     */
+    String getUserId(String username);
 }

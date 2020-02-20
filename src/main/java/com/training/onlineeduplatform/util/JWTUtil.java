@@ -20,18 +20,18 @@ public class JWTUtil {
     private static final String SECRET = "SHIRO+JWT";
 
     /**
-     * 生成 token, 5min后过期
+     * 生成 token, 24h后过期
      *
      * @param username 用户名
      * @return 加密的token
      */
-    public static String createToken(String username,String password) {
+    public static String createToken(String username,String id) {
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         Algorithm algorithm = Algorithm.HMAC256(SECRET);
-        // 附带username信息
+        // 附带username&id信息
         return JWT.create()
                 .withClaim("username", username)
-                .withClaim("password", password)
+                .withClaim("id", id)
                 //到期时间
                 .withExpiresAt(date)
                 //创建一个新的JWT，并使用给定的算法进行标记
