@@ -75,7 +75,7 @@ public class LoginController {
         } else if (!realPassword.equals(password)) {
             return resultMap.fail().code(401).message("密码错误");
         } else {
-            return resultMap.success().code(200).token(JWTUtil.createToken(username,password));
+            return resultMap.success().code(200).token(JWTUtil.createToken(username,userService.getUserId(username)));
         }
     }
 

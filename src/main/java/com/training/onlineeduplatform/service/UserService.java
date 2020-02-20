@@ -63,4 +63,9 @@ public interface UserService {
      * 获取用户信息
      */
     User getUserInf(String username);
+
+    /**
+     * 获取用户id
+     */
+    String getUserId(String username);
 }

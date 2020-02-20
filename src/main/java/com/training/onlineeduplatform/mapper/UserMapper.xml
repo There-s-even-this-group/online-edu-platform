@@ -70,4 +70,8 @@
             <result property="permission" column="permission"/>
         </association>
     </resultMap>
+
+    <select id="getUserId" resultType="String">
+        select id from op where username = #{username}
+    </select>
 </mapper>
