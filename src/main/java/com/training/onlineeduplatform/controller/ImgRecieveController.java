@@ -32,7 +32,7 @@ import java.util.UUID;
 public class ImgRecieveController {
 
     private String IMAGES_DOMAIN_URL;
-    private String IMAGES_LOCALHOST_URL =  "D:\\Postman\\online-edu-platform\\src\\main\\resources\\static\\img\\toelfman";
+    private String IMAGES_LOCALHOST_URL =  "D:\\Postman\\toelfman";
 
     //获取分隔符（不同系统不同）
     String sep = System.getProperty("file.separator");
@@ -72,6 +72,6 @@ public class ImgRecieveController {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return "toelfman/f73b9529-89dd-4d2d-a8ea-a8be4bee5c7f1483BF0FB5CCFD0680CB90E9D1735779.jpg";
+        return "toelfman/1a9fd00c26c4494976197b232fd62d00d54794bf_raw.jpg";
     }
 }

@@ -18,7 +18,6 @@ import java.util.List;
 public class TfrArticleService {
     @Autowired
     TfrArticleMapper tfrArticleMapper;
-
     public List<TfrArticle> getTfrArticle(String articleType){
         return tfrArticleMapper.getTfrArticle(articleType);
     }
