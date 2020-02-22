@@ -1,6 +1,6 @@
 package com.training.onlineeduplatform.controller;
 
-import org.springframework.util.FileCopyUtils;
+import com.training.onlineeduplatform.model.ImgBaseUrl;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -8,16 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.UUID;
 
 
@@ -32,7 +25,7 @@ import java.util.UUID;
 public class ImgRecieveController {
 
     private String IMAGES_DOMAIN_URL;
-    private String IMAGES_LOCALHOST_URL =  "D:\\Postman\\toelfman";
+    private String IMAGES_LOCALHOST_URL =  "D:\\Postman\\";
 
     //获取分隔符（不同系统不同）
     String sep = System.getProperty("file.separator");
@@ -42,11 +35,11 @@ public class ImgRecieveController {
 
 
     @RequestMapping(value = "/tfrRecieve",method = RequestMethod.POST)
-    public String upLoadImg(MultipartFile file) throws IOException {
+    public String upLoadImg(@RequestParam("imgPath") String imgBaseUrl, @RequestParam("file") MultipartFile file) throws IOException {
         String originalFileName = file.getOriginalFilename();// 获取到上传文件的名字
         // file.getSize();获取到上传文件的大小
         String newFileName = UUID.randomUUID()+originalFileName;
-        File dir = new File(IMAGES_LOCALHOST_URL, newFileName);
+        File dir = new File(IMAGES_LOCALHOST_URL+imgBaseUrl, newFileName);
         if (!dir.exists()) {
             dir.mkdirs();
         }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.training.onlineeduplatform.mapper.OpenClassMapper">
+    <select id="getOpenClassByClassType" parameterType="String" resultType="com.training.onlineeduplatform.model.OpenClass">
+        select * from 公开课课程表 where public_classType = #{public_classType};
+    </select>
+    <select id="getOpenClassByClassID" parameterType="int" resultType="com.training.onlineeduplatform.model.OpenClass">
+        select * from 公开课课程表 where public_classID = #{public_classID};
+    </select>
+    <delete id="deleteOpenClass" parameterType="int">
+        delete from 公开课课程表 where
+    </delete>
+    <update id="updateOpenClassByClassID" parameterType="com.training.onlineeduplatform.model.OpenClass" >
+        update 公开课课程表
+        set public_className=#{public_className},teacherID=#{teacherID},public_classType=#{public_classType},public_classPicture=#{public_classPicture},MallType=#{MallType},
+        MainSpeaker=#{MainSpeaker},Sign_Number=#{Sign_Number},Syllabus=#{Syllabus},TeachingWay=#{TeachingWay},IntroducingCourse=#{IntroducingCourse},
+        IntroducingSpeaker=#{IntroducingSpeaker},CreateDate=#{CreateDate},StartClassDate=#{StartClassDate},BeginClassTime=#{BeginClassTime},
+        EndClassTime=#{EndClassTime},MatchStudent=#{MatchStudent},LectureGuide=#{LectureGuide},PriceClass=#{PriceClass}, LikeTimes=#{LikeTimes},
+        GatherPlace=#{GatherPlace},ClassStage=#{ClassStage},ClassGroup=#{ClassGroup}
+        where public_classID=#{public_classID};
+    </update>
+    <insert id="addOpenClass" parameterType="com.training.onlineeduplatform.model.OpenClass" >
+        insert into 公开课课程表
+        values(default ,#{public_className},#{teacherID},#{public_classType},#{public_classPicture},#{MallType},#{MainSpeaker},#{Sign_Number},#{Syllabus},
+        #{TeachingWay},#{IntroducingCourse},#{IntroducingSpeaker},#{CreateDate},#{StartClassDate},#{BeginClassTime},#{EndClassTime},#{MatchStudent},
+        #{LectureGuide},#{PriceClass},#{LikeTimes},#{GatherPlace},#{ClassStage},#{ClassGroup} );
+    </insert>
+    <select id="getLAST_INSERT_ID"  resultType="int">
+        SELECT LAST_INSERT_ID();
+    </select>
+</mapper>
