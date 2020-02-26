@@ -12,7 +12,7 @@
     <select id="getRole" parameterType="String" resultType="String">
         SELECT role
         FROM role
-        WHERE id = (select id from op where username = #{username})
+        WHERE id = (select op_role from op where username = #{username})
     </select>
 
     <update id="updatePassword" parameterType="String">
