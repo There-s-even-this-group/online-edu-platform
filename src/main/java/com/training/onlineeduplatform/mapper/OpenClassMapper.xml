@@ -23,7 +23,7 @@
     </update>
     <insert id="addOpenClass" parameterType="com.training.onlineeduplatform.model.OpenClass" >
         insert into 公开课课程表
-        values(default ,#{public_className},#{teacherID},#{public_classType},#{public_classPicture},#{MallType},#{MainSpeaker},#{Sign_Number},#{Syllabus},
+        values(default,#{teacherID},#{public_className},#{public_classType},#{public_classPicture},#{MallType},#{MainSpeaker},#{Sign_Number},#{Syllabus},
         #{TeachingWay},#{IntroducingCourse},#{IntroducingSpeaker},#{CreateDate},#{StartClassDate},#{BeginClassTime},#{EndClassTime},#{MatchStudent},
         #{LectureGuide},#{PriceClass},#{LikeTimes},#{GatherPlace},#{ClassStage},#{ClassGroup} );
     </insert>
