@@ -94,6 +94,10 @@ public class LoginController {
                               @RequestParam("email") String email,
                               @RequestParam("role") String role) {
         resultMap.clear();
+        User user = userService.getUserInf(username);
+        if (user != null) {
+            return resultMap.fail().code(1000).message("该用户名已被注册！");
+        }
         String md5Password = md5SaltEncode(password);
         userService.addUser(username,md5Password,email,role);
         return resultMap.success().code(200).message("注册成功！");
