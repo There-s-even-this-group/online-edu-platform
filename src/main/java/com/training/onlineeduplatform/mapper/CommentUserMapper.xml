@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.training.onlineeduplatform.mapper.CommentUserMapper">
+    <select id="getCommentByArticle" parameterType="int" resultType="com.training.onlineeduplatform.model.CommentUser">
+        select * from 用户评论表 where articleID = #{article_id} limit 0,#{PLCount};
+    </select>
+    <select id="getCommentByUser" parameterType="String" resultType="com.training.onlineeduplatform.model.CommentUser">
+        select * from 用户评论表 where username = #{username};
+    </select>
+    <insert id="addComment" parameterType="com.training.onlineeduplatform.model.CommentUser">
+        insert into 用户评论表
+        values (default ,#{username},#{articleID},#{commentDate},#{commentContent});
+    </insert>
+    <delete id="deleteComment" parameterType="com.training.onlineeduplatform.model.CommentUser">
+        delete
+    </delete>
+</mapper>

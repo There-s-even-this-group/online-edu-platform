@@ -1,6 +1,6 @@
 package com.training.onlineeduplatform.controller;
 
-import com.training.onlineeduplatform.model.ImgBaseUrl;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +26,7 @@ public class ImgRecieveController {
 
     private String IMAGES_DOMAIN_URL;
     private String IMAGES_LOCALHOST_URL =  "D:\\Postman\\";
-
+    private String path = "/usr/local/tomcat/apache-tomcat-8.0.39/webapps/";
     //获取分隔符（不同系统不同）
     String sep = System.getProperty("file.separator");
 
@@ -39,7 +39,7 @@ public class ImgRecieveController {
         String originalFileName = file.getOriginalFilename();// 获取到上传文件的名字
         // file.getSize();获取到上传文件的大小
         String newFileName = UUID.randomUUID()+originalFileName;
-        File dir = new File(IMAGES_LOCALHOST_URL+imgBaseUrl, newFileName);
+        File dir = new File(path+"static/images/"+imgBaseUrl, newFileName);
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -55,8 +55,8 @@ public class ImgRecieveController {
         return newFileName;
     }
 
-    @RequestMapping(value = "/tfrGive",method = RequestMethod.GET)
-    public String downLoadImg() {
+    @RequestMapping(value = "/imgGive",method = RequestMethod.POST)
+    public String downLoadImg(int id) {
         System.out.println("获取图片资源来了--------");
         try {
             String path = " ";
