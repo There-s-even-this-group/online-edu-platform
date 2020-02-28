@@ -1,5 +1,6 @@
 package com.training.onlineeduplatform.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,39 +22,43 @@ import java.util.UUID;
  */
 
 @RestController
-@RequestMapping(value = "/img")
+@RequestMapping(value = "/upload")
 public class ImgRecieveController {
-
-    private String IMAGES_DOMAIN_URL;
-    private String IMAGES_LOCALHOST_URL =  "D:\\Postman\\";
-    private String path = "/usr/local/tomcat/apache-tomcat-8.0.39/webapps/";
-    //获取分隔符（不同系统不同）
-    String sep = System.getProperty("file.separator");
-
-    public ImgRecieveController() throws FileNotFoundException {
-    }
-
+    @Autowired
+    UploadController uploadController;
 
     @RequestMapping(value = "/tfrRecieve",method = RequestMethod.POST)
     public String upLoadImg(@RequestParam("imgPath") String imgBaseUrl, @RequestParam("file") MultipartFile file) throws IOException {
-        String originalFileName = file.getOriginalFilename();// 获取到上传文件的名字
-        // file.getSize();获取到上传文件的大小
-        String newFileName = UUID.randomUUID()+originalFileName;
-        File dir = new File(path+"static/images/"+imgBaseUrl, newFileName);
-        if (!dir.exists()) {
-            dir.mkdirs();
+        String path = "";
+        if (file.isEmpty()) {
+            return "0";
         }
         try {
-            // MultipartFile自带的解析方法
-            file.transferTo(dir);
-        }catch (Exception e){
+            path = uploadController.saveFile(file);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        String directory = dir.getCanonicalPath();
-        System.out.println("directory:" + directory);
-
-        return newFileName;
+        System.out.println("this path is："+path);
+        return path;
     }
+//        String originalFileName = file.getOriginalFilename();// 获取到上传文件的名字
+//        // file.getSize();获取到上传文件的大小
+//        String newFileName = UUID.randomUUID()+originalFileName;
+//        File dir = new File(IMAGE_PATH + imgBaseUrl , newFileName);
+//        if (!dir.exists()) {
+//            dir.mkdirs();
+//            System.out.println("We Create this!");
+//        }
+//        try {
+//            // MultipartFile自带的解析方法
+//            file.transferTo(dir);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        String directory = dir.getCanonicalPath();
+//        System.out.println("directory:" + directory);
+//
+//        return newFileName;
 
     @RequestMapping(value = "/imgGive",method = RequestMethod.POST)
     public String downLoadImg(int id) {
