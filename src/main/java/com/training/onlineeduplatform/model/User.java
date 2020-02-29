@@ -2,6 +2,8 @@ package com.training.onlineeduplatform.model;
 
 import lombok.Data;
 
+import java.sql.Date;
+
 /**
  * Created on 2020/2/19.
  *
@@ -17,4 +19,8 @@ public class User {
     public String email;
     public Role role;
     public int ban;
+    public String sex;
+    public int phone;
+    public Date birthdata;
+    public String sign;
 }

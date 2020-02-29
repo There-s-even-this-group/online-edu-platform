@@ -53,7 +53,7 @@
     <insert id="addUser" parameterType="String">
         INSERT
         into op
-        values (default,#{username},#{password},#{email},#{role},default)
+        values (default,#{username},#{password},#{email},#{role},default,default ,default ,default ,default )
     </insert>
 
     <select id="getUserInf" parameterType="String" resultMap="UserInf">
@@ -64,6 +64,10 @@
         <result property="username" column="username"/>
         <result property="email" column="email"/>
         <result property="ban" column="ban"/>
+        <result property="sex" column="sex"/>
+        <result property="phone" column="phone"/>
+        <result property="birthdata" column="birthdata"/>
+        <result property="sign" column="sign"/>
         <association property="role" javaType="com.training.onlineeduplatform.model.Role">
             <id property="id" column="id"/>
             <result property="role" column="role"/>

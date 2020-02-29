@@ -117,7 +117,15 @@ public class LoginController {
         list.add(user.getRole().getRole());
         list.add(user.getRole().getPermission());
         resultUserInfMap.clear();
-        return resultUserInfMap.username(user.getUsername()).email(user.getEmail()).role(list).ban(user.getBan());
+        System.out.println(user);
+        return resultUserInfMap.username(user.getUsername())
+                .email(user.getEmail())
+                .role(list)
+                .ban(user.getBan())
+                .sex(user.getSex())
+                .phone(user.getPhone())
+                .birthdata(user.getBirthdata())
+                .sign(user.getSign());
     }
 
     @RequestMapping(path = "/unauthorized/{message}")

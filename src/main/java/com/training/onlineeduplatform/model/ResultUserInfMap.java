@@ -2,6 +2,7 @@ package com.training.onlineeduplatform.model;
 
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ResultUserInfMap extends HashMap<String, Object> {
     }
 
     public ResultUserInfMap email(String email) {
-        this.put("emali", email);
+        this.put("email", email);
         return this;
     }
 
@@ -36,6 +37,26 @@ public class ResultUserInfMap extends HashMap<String, Object> {
 
     public ResultUserInfMap ban(int ban) {
         this.put("ban", ban);
+        return this;
+    }
+
+    public ResultUserInfMap sex(String sex) {
+        this.put("sex", sex);
+        return this;
+    }
+
+    public ResultUserInfMap phone(int phone) {
+        this.put("phone", phone);
+        return this;
+    }
+
+    public ResultUserInfMap birthdata(Date birthdata) {
+        this.put("birthdata", birthdata);
+        return this;
+    }
+
+    public ResultUserInfMap sign(String sign) {
+        this.put("sign", sign);
         return this;
     }
 }
