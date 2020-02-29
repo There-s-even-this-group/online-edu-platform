@@ -59,7 +59,7 @@
     <select id="getUserInf" parameterType="String" resultMap="UserInf">
         select * from op as u,role as r where u.username= #{username} and u.op_role = r.id
     </select>
-    <resultMap id="UserInf" type="com.training.onlineeduplatform.model.User">
+    <resultMap id="UserInf" type="com.training.onlineeduplatform.model.user.User">
         <id property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="email" column="email"/>
@@ -78,4 +78,10 @@
     <select id="getUserId" resultType="String">
         select id from op where username = #{username}
     </select>
+
+    <update id="changeUserInf" parameterType="com.training.onlineeduplatform.model.user.UserChangeInf">
+        update op
+        set email = #{email}, sex = #{sex} ,phone = #{phone} ,birthdata = #{birthdata}, sign = #{sign}
+        where username = #{username}
+    </update>
 </mapper>

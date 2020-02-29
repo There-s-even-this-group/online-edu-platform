@@ -1,7 +1,8 @@
 package com.training.onlineeduplatform.service.impl;
 
 import com.training.onlineeduplatform.mapper.UserMapper;
-import com.training.onlineeduplatform.model.User;
+import com.training.onlineeduplatform.model.user.User;
+import com.training.onlineeduplatform.model.user.UserChangeInf;
 import com.training.onlineeduplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,5 +73,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getUserId(String username) {
         return userMapper.getUserId(username);
+    }
+
+    @Override
+    public int changeUserInf(UserChangeInf userChangeInf) {
+        return userMapper.changeUserInf(userChangeInf);
     }
 }

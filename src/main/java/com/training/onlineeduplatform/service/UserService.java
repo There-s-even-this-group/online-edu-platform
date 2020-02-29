@@ -1,7 +1,8 @@
 package com.training.onlineeduplatform.service;
 
 
-import com.training.onlineeduplatform.model.User;
+import com.training.onlineeduplatform.model.user.User;
+import com.training.onlineeduplatform.model.user.UserChangeInf;
 
 import java.util.List;
 
@@ -68,4 +69,9 @@ public interface UserService {
      * 获取用户id
      */
     String getUserId(String username);
+
+    /**
+     * 修改用户信息
+     */
+    int changeUserInf(UserChangeInf userChangeInf);
 }

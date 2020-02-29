@@ -1,4 +1,4 @@
-package com.training.onlineeduplatform.model;
+package com.training.onlineeduplatform.model.user;
 
 import org.springframework.stereotype.Component;
 
@@ -45,7 +45,7 @@ public class ResultUserInfMap extends HashMap<String, Object> {
         return this;
     }
 
-    public ResultUserInfMap phone(int phone) {
+    public ResultUserInfMap phone(String phone) {
         this.put("phone", phone);
         return this;
     }

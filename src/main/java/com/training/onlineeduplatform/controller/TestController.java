@@ -1,8 +1,8 @@
 package com.training.onlineeduplatform.controller;
 
 import com.training.onlineeduplatform.model.ResultMap;
-import com.training.onlineeduplatform.model.ResultUserInfMap;
-import com.training.onlineeduplatform.model.User;
+import com.training.onlineeduplatform.model.user.ResultUserInfMap;
+import com.training.onlineeduplatform.model.user.User;
 import com.training.onlineeduplatform.service.UserService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**

@@ -1,6 +1,7 @@
 package com.training.onlineeduplatform.mapper;
 
-import com.training.onlineeduplatform.model.User;
+import com.training.onlineeduplatform.model.user.User;
+import com.training.onlineeduplatform.model.user.UserChangeInf;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -70,4 +71,9 @@ public interface UserMapper {
      * 获取用户id
      */
     String getUserId(String username);
+
+    /**
+     * 修改用户信息
+     */
+    int changeUserInf(UserChangeInf userChangeInf);
 }

@@ -1,21 +1,16 @@
-package com.training.onlineeduplatform.controller;
+package com.training.onlineeduplatform.controller.user;
 
 import com.training.onlineeduplatform.model.ResultMap;
-import com.training.onlineeduplatform.model.ResultUserInfMap;
-import com.training.onlineeduplatform.model.User;
+import com.training.onlineeduplatform.model.user.User;
 import com.training.onlineeduplatform.service.UserService;
 import com.training.onlineeduplatform.util.JWTUtil;
+import com.training.onlineeduplatform.util.Md5Encoding;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created on 2020/2/13.
@@ -27,15 +22,7 @@ public class LoginController {
     @Autowired
     private ResultMap resultMap;
     @Autowired
-    private final ResultUserInfMap resultUserInfMap;
-    @Autowired
     private UserService userService;
-
-    private final static String salt="1x2j3x4y5w6t";
-
-    public LoginController(ResultUserInfMap resultUserInfMap) {
-        this.resultUserInfMap = resultUserInfMap;
-    }
 
     @GetMapping(value = "/notLogin")
     public ResultMap notLogin() {
@@ -68,7 +55,7 @@ public class LoginController {
     public ResultMap login(@RequestParam("username") String username,
                            @RequestParam("password") String password) {
         String realPassword = userService.getPassword(username);
-        password = md5SaltEncode(password);
+        password = Md5Encoding.md5SaltEncode(password);
         resultMap.clear();
         if (realPassword == null) {
             return resultMap.fail().code(401).message("用户名错误");
@@ -98,49 +85,14 @@ public class LoginController {
         if (user != null) {
             return resultMap.fail().code(1000).message("该用户名已被注册！");
         }
-        String md5Password = md5SaltEncode(password);
+        String md5Password = Md5Encoding.md5SaltEncode(password);
         userService.addUser(username,md5Password,email,role);
         return resultMap.success().code(200).message("注册成功！");
-    }
-
-    /**
-     * 获取用户信息
-     * @param token 凭证
-     * @return
-     */
-    @GetMapping("/getInf")
-    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
-    public ResultUserInfMap getUser(@RequestHeader String token){
-        String username = JWTUtil.getUsername(token);
-        User user = userService.getUserInf(username);
-        List<String> list = new ArrayList<>();
-        list.add(user.getRole().getRole());
-        list.add(user.getRole().getPermission());
-        resultUserInfMap.clear();
-        System.out.println(user);
-        return resultUserInfMap.username(user.getUsername())
-                .email(user.getEmail())
-                .role(list)
-                .ban(user.getBan())
-                .sex(user.getSex())
-                .phone(user.getPhone())
-                .birthdata(user.getBirthdata())
-                .sign(user.getSign());
     }
 
     @RequestMapping(path = "/unauthorized/{message}")
     public ResultMap unauthorized(@PathVariable String message) throws UnsupportedEncodingException {
         resultMap.clear();
         return resultMap.success().code(401).message(message);
-    }
-
-    /**
-     * md5加盐加密算法
-     * @param password
-     * @return
-     */
-    private String md5SaltEncode(String password){
-        String str = "" + salt.charAt(3) + salt + salt.charAt(7) + password + salt.charAt(9);
-        return DigestUtils.md5DigestAsHex(str.getBytes());
     }
 }

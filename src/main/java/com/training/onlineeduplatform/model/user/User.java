@@ -1,5 +1,6 @@
-package com.training.onlineeduplatform.model;
+package com.training.onlineeduplatform.model.user;
 
+import com.training.onlineeduplatform.model.Role;
 import lombok.Data;
 
 import java.sql.Date;
@@ -20,7 +21,7 @@ public class User {
     public Role role;
     public int ban;
     public String sex;
-    public int phone;
+    public String phone;
     public Date birthdata;
     public String sign;
 }
