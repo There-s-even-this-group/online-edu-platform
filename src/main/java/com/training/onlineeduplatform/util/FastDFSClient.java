@@ -100,6 +100,13 @@ public class FastDFSClient {
         return null;
     }
 
+    /**
+     * 删除文件
+     * ==0表示成功
+     * @param groupName 组名 如：group1
+     * @param remoteFileName 不带组名的路径名称 如：M00/00/00/wKgRsVjtwpSAXGwkAAAweEAzRjw471.jpg
+     * @throws Exception
+     */
     public static void deleteFile(String groupName, String remoteFileName)
             throws Exception {
         StorageClient storageClient = getStorageClient();

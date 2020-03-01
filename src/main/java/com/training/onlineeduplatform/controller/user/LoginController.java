@@ -15,6 +15,8 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created on 2020/2/13.
  *
+ * 登录注册Controller
+ *
  * @author Yue Wu
  */
 @RestController

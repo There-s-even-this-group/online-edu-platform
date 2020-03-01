@@ -20,6 +20,8 @@ import java.util.List;
 /**
  * Created on 2020/2/29.
  *
+ * 用户信息相关Controller
+ *
  * @author Yue Wu
  */
 @RestController
@@ -63,6 +65,12 @@ public class UserInfController {
                 .sign(user.getSign());
     }
 
+    /**
+     * 修改用户信息
+     * 个人中心页
+     * @param userChangeInf 封装实体类（仅包含修改属性）
+     * @return
+     */
     @PostMapping("/changInf")
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public ResultMap changeUser(UserChangeInf userChangeInf) {
@@ -73,6 +81,11 @@ public class UserInfController {
         }
     }
 
+    /**
+     * 获取用户头像
+     * @param token 凭证
+     * @return
+     */
     @GetMapping("/getIcon")
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public ResultMap getUserIcon(@RequestHeader String token){
@@ -80,11 +93,26 @@ public class UserInfController {
         return resultMap.success().code(200).icon(userService.getUserIcon(username));
     }
 
+    /**
+     * 修改用户头像
+     * @param file 用户头像
+     * @param token 凭证
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/changeIcon")
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
-    public ResultMap changeUserIcon(@RequestParam("file") MultipartFile file,@RequestHeader String token) throws IOException {
+    public ResultMap changeUserIcon(@RequestParam("file") MultipartFile file,@RequestHeader String token) throws Exception {
         String path = "";
         String username = JWTUtil.getUsername(token);
+        String pastIcon = userService.getUserIcon(username);
+        if (!"http://120.27.241.26/group1/M00/00/00/rBDDUl5bcO2ANCAWAAAGsa4U3Is409.png".equals(pastIcon)) {
+            String past = "";
+            for (int i = 31;i < pastIcon.length(); i++) {
+                past += pastIcon.charAt(i);
+            }
+            uploadController.deleteFile("group1",past);
+        }
         if (file.isEmpty()) {
             return resultMap.fail().code(401).message("修改失败");
         }

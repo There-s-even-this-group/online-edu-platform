@@ -44,4 +44,15 @@ public class UploadController {
         String path = FastDFSClient.getTrackerUrl() + fileAbsolutePath[0] + "/" + fileAbsolutePath[1];
         return path;
     }
+
+    /**
+     * 删除文件
+     * @param groupName 组名 如：group1
+     * @param remoteFileName 不带组名的路径名称 如：M00/00/00/wKgRsVjtwpSAXGwkAAAweEAzRjw471.jpg
+     * @throws Exception
+     */
+    public boolean deleteFile(String groupName, String remoteFileName) throws Exception {
+        FastDFSClient.deleteFile(groupName,remoteFileName);
+        return true;
+    }
 }
