@@ -95,4 +95,10 @@
         set icon = #{path}
         where username = #{username}
     </update>
+
+    <update id="changeUserPass" parameterType="String">
+        update op
+        set password = #{newpassword}
+        where username = #{username}
+    </update>
 </mapper>

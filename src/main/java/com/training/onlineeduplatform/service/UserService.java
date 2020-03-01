@@ -84,4 +84,9 @@ public interface UserService {
      * 设置用户头像
      */
     int changeUserIcon(String username,String path);
+
+    /**
+     * 修改用户密码
+     */
+    int changeUserPass(String username,String newpassword);
 }

@@ -7,6 +7,7 @@ import com.training.onlineeduplatform.model.user.User;
 import com.training.onlineeduplatform.model.user.UserChangeInf;
 import com.training.onlineeduplatform.service.UserService;
 import com.training.onlineeduplatform.util.JWTUtil;
+import com.training.onlineeduplatform.util.Md5Encoding;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,5 +124,28 @@ public class UserInfController {
         }
         userService.changeUserIcon(username,path);
         return resultMap.success().code(200).message("修改成功");
+    }
+
+    /**
+     * 修改用户密码
+     * @param token 凭证
+     * @param newpass 新密码
+     * @return
+     */
+    @PostMapping("/changePass")
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public ResultMap changeUserPass(@RequestHeader String token,@RequestParam("oldpass") String oldpass ,@RequestParam("newpass") String newpass) {
+        String username = JWTUtil.getUsername(token);
+        String realPassword = userService.getPassword(username);
+        if (realPassword.equals(Md5Encoding.md5SaltEncode(oldpass))) {
+            String newpassword = Md5Encoding.md5SaltEncode(newpass);
+            if (userService.changeUserPass(username,newpassword) == 1){
+                return resultMap.success().code(200).message("修改成功");
+            } else {
+                return resultMap.success().code(401).message("未知错误");
+            }
+        } else {
+            return resultMap.success().code(401).message("请输入正确的原密码");
+        }
     }
 }
