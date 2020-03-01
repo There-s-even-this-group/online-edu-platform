@@ -79,4 +79,14 @@ public class UserServiceImpl implements UserService {
     public int changeUserInf(UserChangeInf userChangeInf) {
         return userMapper.changeUserInf(userChangeInf);
     }
+
+    @Override
+    public String getUserIcon(String username) {
+        return userMapper.getUserIcon(username);
+    }
+
+    @Override
+    public int changeUserIcon(String username, String path) {
+        return userMapper.changeUserIcon(username,path);
+    }
 }

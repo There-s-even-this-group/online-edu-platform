@@ -1,4 +1,4 @@
-package com.training.onlineeduplatform.model;
+package com.training.onlineeduplatform.model.common;
 
 import org.springframework.stereotype.Component;
 
@@ -36,6 +36,11 @@ public class ResultMap extends HashMap<String, Object> {
 
     public ResultMap token(Object token) {
         this.put("token", token);
+        return this;
+    }
+
+    public ResultMap icon(Object icon) {
+        this.put("icon", icon);
         return this;
     }
 }

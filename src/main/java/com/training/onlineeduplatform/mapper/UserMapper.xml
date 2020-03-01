@@ -53,7 +53,7 @@
     <insert id="addUser" parameterType="String">
         INSERT
         into op
-        values (default,#{username},#{password},#{email},#{role},default,default ,default ,default ,default )
+        values (default,#{username},#{password},#{email},#{role},default,default ,default ,default ,default,default)
     </insert>
 
     <select id="getUserInf" parameterType="String" resultMap="UserInf">
@@ -68,6 +68,7 @@
         <result property="phone" column="phone"/>
         <result property="birthdata" column="birthdata"/>
         <result property="sign" column="sign"/>
+        <result property="icon" column="icon"/>
         <association property="role" javaType="com.training.onlineeduplatform.model.Role">
             <id property="id" column="id"/>
             <result property="role" column="role"/>
@@ -82,6 +83,16 @@
     <update id="changeUserInf" parameterType="com.training.onlineeduplatform.model.user.UserChangeInf">
         update op
         set email = #{email}, sex = #{sex} ,phone = #{phone} ,birthdata = #{birthdata}, sign = #{sign}
+        where username = #{username}
+    </update>
+
+    <select id="getUserIcon" parameterType="String" resultType="String">
+        select icon from op where username = #{username}
+    </select>
+
+    <update id="changeUserIcon" parameterType="String">
+        update op
+        set icon = #{path}
         where username = #{username}
     </update>
 </mapper>

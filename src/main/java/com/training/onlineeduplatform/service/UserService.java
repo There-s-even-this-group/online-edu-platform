@@ -74,4 +74,14 @@ public interface UserService {
      * 修改用户信息
      */
     int changeUserInf(UserChangeInf userChangeInf);
+
+    /**
+     * 获取用户头像
+     */
+    String getUserIcon(String username);
+
+    /**
+     * 设置用户头像
+     */
+    int changeUserIcon(String username,String path);
 }

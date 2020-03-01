@@ -24,4 +24,5 @@ public class User {
     public String phone;
     public Date birthdata;
     public String sign;
+    public String icon;
 }

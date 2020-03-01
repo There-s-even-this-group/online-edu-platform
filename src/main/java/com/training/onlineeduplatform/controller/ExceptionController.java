@@ -1,6 +1,6 @@
 package com.training.onlineeduplatform.controller;
 
-import com.training.onlineeduplatform.model.ResultMap;
+import com.training.onlineeduplatform.model.common.ResultMap;
 import org.apache.shiro.ShiroException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

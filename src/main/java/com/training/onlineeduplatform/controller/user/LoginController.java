@@ -1,6 +1,6 @@
 package com.training.onlineeduplatform.controller.user;
 
-import com.training.onlineeduplatform.model.ResultMap;
+import com.training.onlineeduplatform.model.common.ResultMap;
 import com.training.onlineeduplatform.model.user.User;
 import com.training.onlineeduplatform.service.UserService;
 import com.training.onlineeduplatform.util.JWTUtil;
