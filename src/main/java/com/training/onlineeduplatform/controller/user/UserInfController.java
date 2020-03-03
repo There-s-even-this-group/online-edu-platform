@@ -1,11 +1,11 @@
 package com.training.onlineeduplatform.controller.user;
 
-import com.training.onlineeduplatform.controller.UploadController;
 import com.training.onlineeduplatform.model.common.ResultMap;
 import com.training.onlineeduplatform.model.user.ResultUserInfMap;
 import com.training.onlineeduplatform.model.user.User;
 import com.training.onlineeduplatform.model.user.UserChangeInf;
 import com.training.onlineeduplatform.service.UserService;
+import com.training.onlineeduplatform.util.FastdfsUtils;
 import com.training.onlineeduplatform.util.JWTUtil;
 import com.training.onlineeduplatform.util.Md5Encoding;
 import org.apache.shiro.authz.annotation.Logical;
@@ -35,7 +35,7 @@ public class UserInfController {
     @Autowired
     private UserService userService;
     @Autowired
-    UploadController uploadController;
+    private FastdfsUtils fastdfsUtils;
 
     public UserInfController(ResultUserInfMap resultUserInfMap) {
         this.resultUserInfMap = resultUserInfMap;
@@ -91,7 +91,7 @@ public class UserInfController {
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public ResultMap getUserIcon(@RequestHeader String token){
         String username = JWTUtil.getUsername(token);
-        return resultMap.success().code(200).icon(userService.getUserIcon(username));
+        return resultMap.success().code(200).icon(FastdfsUtils.BASE_URL + userService.getUserIcon(username));
     }
 
     /**
@@ -107,18 +107,14 @@ public class UserInfController {
         String path = "";
         String username = JWTUtil.getUsername(token);
         String pastIcon = userService.getUserIcon(username);
-        if (!"http://120.27.241.26/group1/M00/00/00/rBDDUl5bcO2ANCAWAAAGsa4U3Is409.png".equals(pastIcon)) {
-            String past = "";
-            for (int i = 31;i < pastIcon.length(); i++) {
-                past += pastIcon.charAt(i);
-            }
-            uploadController.deleteFile("group1",past);
+        if (!"group1/M00/00/00/rBDDUl5bcO2ANCAWAAAGsa4U3Is409.png".equals(pastIcon)) {
+            fastdfsUtils.delete(pastIcon);
         }
         if (file.isEmpty()) {
             return resultMap.fail().code(401).message("修改失败");
         }
         try {
-            path = uploadController.saveFile(file);
+            path = fastdfsUtils.upload(file);
         } catch (Exception e) {
             e.printStackTrace();
         }

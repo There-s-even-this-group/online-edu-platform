@@ -24,8 +24,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/upload")
 public class ImgRecieveController {
-    @Autowired
-    UploadController uploadController;
 
     @RequestMapping(value = "/tfrRecieve",method = RequestMethod.POST)
     public String upLoadImg(@RequestParam("imgPath") String imgBaseUrl, @RequestParam("file") MultipartFile file) throws IOException {
@@ -34,7 +32,6 @@ public class ImgRecieveController {
             return "0";
         }
         try {
-            path = uploadController.saveFile(file);
         } catch (Exception e) {
             e.printStackTrace();
         }
