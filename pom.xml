@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.training</groupId>
     <artifactId>online-edu-platform</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-BetaVersion</version>
     <name>online-edu-platform</name>
     <description>Renren toefl online education platform</description>
 
