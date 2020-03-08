@@ -5,6 +5,7 @@ import com.training.onlineeduplatform.model.user.UserChangeInf;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -91,4 +92,19 @@ public interface UserMapper {
      * 修改用户密码
      */
     int changeUserPass(String username,String newpassword);
+
+    /**
+     * 签到（设置最后签到日期）
+     */
+    int signUp(String username);
+
+    /**
+     * 获取最后签到日期
+     */
+    Date getLastSign(String username);
+
+    /**
+     * 获取连续签到日期
+     */
+    int getFrequency(String username);
 }

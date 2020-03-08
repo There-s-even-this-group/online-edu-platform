@@ -101,4 +101,18 @@
         set password = #{newpassword}
         where username = #{username}
     </update>
+
+    <update id="signUp" parameterType="String">
+        update opSignIn
+        set lastsign = curdate()
+        where username = #{username}
+    </update>
+
+    <select id="getLastSign" resultType="java.util.Date" parameterType="String">
+        select lastsign from opSignIn where username = #{username}
+    </select>
+
+    <select id="getFrequency" parameterType="String" resultType="int">
+        select frequency from opSignIn where username = #{username}
+    </select>
 </mapper>

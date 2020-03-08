@@ -6,7 +6,9 @@ import com.training.onlineeduplatform.model.user.UserChangeInf;
 import com.training.onlineeduplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,6 +17,7 @@ import java.util.List;
  * @author Yue Wu
  */
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -93,5 +96,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public int changeUserPass(String username, String newpassword) {
         return userMapper.changeUserPass(username,newpassword);
+    }
+
+    @Override
+    public int signUp(String username) {
+        return userMapper.signUp(username);
+    }
+
+    @Override
+    public Date getLastSign(String username) {
+        return userMapper.getLastSign(username);
+    }
+
+    @Override
+    public int getFrequency(String username) {
+        return userMapper.getFrequency(username);
     }
 }

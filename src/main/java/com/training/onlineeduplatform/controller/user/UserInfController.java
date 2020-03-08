@@ -75,6 +75,7 @@ public class UserInfController {
     @PostMapping("/changInf")
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public ResultMap changeUser(UserChangeInf userChangeInf) {
+        resultMap.clear();
         if (userService.changeUserInf(userChangeInf) == 1) {
             return resultMap.success().code(200).message("修改成功！");
         } else {
@@ -90,6 +91,7 @@ public class UserInfController {
     @GetMapping("/getIcon")
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public ResultMap getUserIcon(@RequestHeader String token){
+        resultMap.clear();
         String username = JWTUtil.getUsername(token);
         return resultMap.success().code(200).icon(FastdfsUtils.BASE_URL + userService.getUserIcon(username));
     }
@@ -104,6 +106,7 @@ public class UserInfController {
     @PostMapping("/changeIcon")
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public ResultMap changeUserIcon(@RequestParam("file") MultipartFile file,@RequestHeader String token) throws Exception {
+        resultMap.clear();
         String path = "";
         String username = JWTUtil.getUsername(token);
         String pastIcon = userService.getUserIcon(username);
@@ -131,6 +134,7 @@ public class UserInfController {
     @PostMapping("/changePass")
     @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public ResultMap changeUserPass(@RequestHeader String token,@RequestParam("oldpass") String oldpass ,@RequestParam("newpass") String newpass) {
+        resultMap.clear();
         String username = JWTUtil.getUsername(token);
         String realPassword = userService.getPassword(username);
         if (realPassword.equals(Md5Encoding.md5SaltEncode(oldpass))) {
