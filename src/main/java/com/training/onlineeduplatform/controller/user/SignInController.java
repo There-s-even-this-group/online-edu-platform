@@ -51,9 +51,10 @@ public class SignInController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String today = dateFormat.format(date);
         String target = dateFormat.format(userService.getLastSign(username));
+        int frequency = userService.getFrequency(username);
         if (today.equals(target)) {
-            if (userService.getFrequency(username) % 10 == 0) {
-                return resultMap.success().code(20011).message("连续签到十天，获得100托福币");
+            if (frequency % 10 == 0) {
+                return resultMap.success().code(20011).message("连续签到"+ frequency +"天，获得100托福币");
             } else {
                 return resultMap.success().code(20010).message("今日已签到");
             }
