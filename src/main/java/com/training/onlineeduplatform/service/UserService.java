@@ -1,6 +1,7 @@
 package com.training.onlineeduplatform.service;
 
 
+import com.training.onlineeduplatform.model.user.TeacherInf;
 import com.training.onlineeduplatform.model.user.User;
 import com.training.onlineeduplatform.model.user.UserChangeInf;
 
@@ -105,4 +106,14 @@ public interface UserService {
      * 获取连续签到日期
      */
     int getFrequency(String username);
+
+    /**
+     * 获取教师用户信息
+     */
+    TeacherInf getTeacherInf(String username);
+
+    /**
+     * 修改教师用户信息
+     */
+    int changeTeacherInf(TeacherInf teacherInf);
 }

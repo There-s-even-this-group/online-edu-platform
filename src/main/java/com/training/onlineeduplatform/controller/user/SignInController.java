@@ -90,4 +90,17 @@ public class SignInController {
             return resultMap.success().code(200).message("No");
         }
     }
+
+    /**
+     * 获取连续签到天数，为显示奖励倒计时预留
+     * @param token 凭证
+     * @return 天数
+     */
+    @GetMapping("/getFrequency")
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public ResultMap getFrequency(@RequestHeader String token) {
+        resultMap.clear();
+        String username = JWTUtil.getUsername(token);
+        return resultMap.success().message(userService.getFrequency(username));
+    }
 }

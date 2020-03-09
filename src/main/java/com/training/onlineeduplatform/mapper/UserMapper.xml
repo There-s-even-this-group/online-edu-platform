@@ -115,4 +115,15 @@
     <select id="getFrequency" parameterType="String" resultType="int">
         select frequency from opSignIn where username = #{username}
     </select>
+
+    <select id="getTeacherInf" parameterType="String" resultType="com.training.onlineeduplatform.model.user.TeacherInf">
+        select * from opTeacherBaseInf where username = #{username}
+    </select>
+
+    <update id="changeTeacherInf" parameterType="com.training.onlineeduplatform.model.user.TeacherInf">
+       update op set sex = #{sex}, email = #{email}, phone = #{phone} where username = #{username};
+       update opTeacherInf
+       set realname = #{realname}, education = #{education},  introduction= #{introduction}
+       where id = (select id from op where username = #{username});
+    </update>
 </mapper>

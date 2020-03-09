@@ -1,6 +1,7 @@
 package com.training.onlineeduplatform.service.impl;
 
 import com.training.onlineeduplatform.mapper.UserMapper;
+import com.training.onlineeduplatform.model.user.TeacherInf;
 import com.training.onlineeduplatform.model.user.User;
 import com.training.onlineeduplatform.model.user.UserChangeInf;
 import com.training.onlineeduplatform.service.UserService;
@@ -111,5 +112,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public int getFrequency(String username) {
         return userMapper.getFrequency(username);
+    }
+
+    @Override
+    public TeacherInf getTeacherInf(String username) {
+        return userMapper.getTeacherInf(username);
+    }
+
+    @Override
+    public int changeTeacherInf(TeacherInf teacherInf) {
+        return userMapper.changeTeacherInf(teacherInf);
     }
 }
