@@ -110,19 +110,20 @@ public class UserInfController {
         String path = "";
         String username = JWTUtil.getUsername(token);
         String pastIcon = userService.getUserIcon(username);
-        if (!"group1/M00/00/00/rBDDUl5bcO2ANCAWAAAGsa4U3Is409.png".equals(pastIcon)) {
-            fastdfsUtils.delete(pastIcon);
-        }
         if (file.isEmpty()) {
-            return resultMap.fail().code(401).message("修改失败");
+            return resultMap.fail().code(401).message("请选择图片");
+        } else {
+            if (!"group1/M00/00/00/rBDDUl5bcO2ANCAWAAAGsa4U3Is409.png".equals(pastIcon)) {
+                fastdfsUtils.delete(pastIcon);
+            }
+            try {
+                path = fastdfsUtils.upload(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            userService.changeUserIcon(username,path);
+            return resultMap.success().code(200).message("修改成功");
         }
-        try {
-            path = fastdfsUtils.upload(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        userService.changeUserIcon(username,path);
-        return resultMap.success().code(200).message("修改成功");
     }
 
     /**
