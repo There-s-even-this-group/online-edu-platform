@@ -24,6 +24,7 @@ public class TfrArticleController {
     @Autowired
     TfrArticleService tfrArticleService;
 
+
     @RequestMapping(value = "/home",method = RequestMethod.POST)
     public Map<String,Object> getTfrHomeData(String articleType) {
         Map<String, Object> map = new HashMap<>();

@@ -1,5 +1,6 @@
 package com.training.onlineeduplatform.controller;
 
+import com.training.onlineeduplatform.util.FastdfsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ResourceUtils;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,6 +26,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/upload")
 public class ImgRecieveController {
+    @Autowired
+    private FastdfsUtils fastdfsUtils;
 
     @RequestMapping(value = "/tfrRecieve",method = RequestMethod.POST)
     public String upLoadImg(@RequestParam("imgPath") String imgBaseUrl, @RequestParam("file") MultipartFile file) throws IOException {
@@ -32,6 +36,7 @@ public class ImgRecieveController {
             return "0";
         }
         try {
+            path = fastdfsUtils.upload(file);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,15 +63,11 @@ public class ImgRecieveController {
 //        return newFileName;
 
     @RequestMapping(value = "/imgGive",method = RequestMethod.POST)
-    public String downLoadImg(int id) {
+    public String downLoadImg(int id, HttpServletResponse response) {
         System.out.println("获取图片资源来了--------");
         try {
-            String path = " ";
-            path = ResourceUtils.getURL("classpath:").getPath();
-            System.out.println(path);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
         }
-        return "toelfman/1a9fd00c26c4494976197b232fd62d00d54794bf_raw.jpg";
+        return ;
     }
 }
