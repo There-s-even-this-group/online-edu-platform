@@ -123,4 +123,9 @@ public class UserServiceImpl implements UserService {
     public int changeTeacherInf(TeacherInf teacherInf) {
         return userMapper.changeTeacherInf(teacherInf);
     }
+
+    @Override
+    public int getSignNumber() {
+        return userMapper.getSignNumber();
+    }
 }

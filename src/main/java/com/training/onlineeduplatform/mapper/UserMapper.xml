@@ -126,4 +126,8 @@
        set realname = #{realname}, education = #{education},  introduction= #{introduction}
        where id = (select id from op where username = #{username});
     </update>
+
+    <select id="getSignNumber" resultType="int">
+        select COUNT(*) FROM opSignIn WHERE lastsign = CURDATE();
+    </select>
 </mapper>
