@@ -116,4 +116,9 @@ public interface UserService {
      * 修改教师用户信息
      */
     int changeTeacherInf(TeacherInf teacherInf);
+
+    /**
+     * 获取当前的签到人数
+     */
+    int getSignNumber();
 }

@@ -86,7 +86,6 @@ public class SignInController {
         if (today.equals(target)) {
             return resultMap.success().code(20010).message("Yes");
         } else {
-            userService.signUp(username);
             return resultMap.success().code(200).message("No");
         }
     }
