@@ -30,4 +30,7 @@
     <select id="getLAST_INSERT_ID"  resultType="int">
         SELECT LAST_INSERT_ID();
     </select>
+    <update id="baoming" parameterType="int">
+    update 公开课课程表 set Sign_Number = Sign_Number + 1 where public_classID = #{public_id};
+    </update>
 </mapper>

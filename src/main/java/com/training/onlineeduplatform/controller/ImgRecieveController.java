@@ -63,11 +63,15 @@ public class ImgRecieveController {
 //        return newFileName;
 
     @RequestMapping(value = "/imgGive",method = RequestMethod.POST)
-    public String downLoadImg(int id, HttpServletResponse response) {
+    public int downLoadImg(@RequestParam("imgPath") String imgPath, HttpServletResponse response) {
         System.out.println("获取图片资源来了--------");
-        try {
+        try{
+            fastdfsUtils.download(imgPath,response);
+            return 200;
+        }
+        catch (Exception e) {
 
         }
-        return ;
+        return 0;
     }
 }

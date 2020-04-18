@@ -47,4 +47,9 @@ public class OpenClassServiceImpl implements OpenClassService {
     public int getLAST_INSERT_ID() {
         return openClassMapper.getLAST_INSERT_ID();
     }
+
+    @Override
+    public int baoming(int public_id){
+        return openClassMapper.baoming(public_id);
+    }
 }

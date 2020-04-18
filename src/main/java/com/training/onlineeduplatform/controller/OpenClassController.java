@@ -2,10 +2,11 @@ package com.training.onlineeduplatform.controller;
 
 import com.training.onlineeduplatform.model.OpenClass;
 import com.training.onlineeduplatform.service.OpenClassService;
+import com.training.onlineeduplatform.util.JWTUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +22,7 @@ public class OpenClassController {
     @Autowired
     OpenClassService openClassService;
 
-    @GetMapping(value = "/getOpenClassByClassType")
+    @PostMapping(value = "/getOpenClassByClassType")
     public Map<String, Object> getOpenClassByClassType(String public_classType){
         Map<String, Object> map = new HashMap<>();
         List<OpenClass> list = openClassService.getOpenClassByClassType(public_classType);
@@ -29,7 +30,7 @@ public class OpenClassController {
         return map;
     }
 
-    @GetMapping(value = "/getOpenClassByID")
+    @PostMapping(value = "/getOpenClassByID")
     public Map<String, Object> getOpenClassByClassID(int public_classID){
         Map<String, Object> map = new HashMap<>();
         List<OpenClass> list = openClassService.getOpenClassByClassID(public_classID);
@@ -56,6 +57,15 @@ public class OpenClassController {
         int id = openClassService.getLAST_INSERT_ID();
         map.put("code",code);
         map.put("id",id);
+        return map;
+    }
+    @PostMapping(value = "/baomingOpenClass")
+    @RequiresRoles(logical = Logical.OR,value = {"user","admin"})
+    public Map<String,Object> baoming(@RequestHeader String token, @RequestParam("public_id") int public_id){
+        Map<String, Object> map = new HashMap<>();
+        String username = JWTUtil.getUsername(token);
+        int code =openClassService.baoming(public_id);
+        map.put("code",code);
         return map;
     }
 }

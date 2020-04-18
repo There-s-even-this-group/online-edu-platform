@@ -18,4 +18,5 @@ public interface OpenClassMapper {
     int updateOpenClassByClassID(OpenClass openClass);
     int addOpenClass(OpenClass openClass);
     int getLAST_INSERT_ID();
+    int baoming(int public_id);
 }
