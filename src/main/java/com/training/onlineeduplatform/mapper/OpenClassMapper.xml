@@ -34,6 +34,6 @@
     update 公开课课程表 set Sign_Number = Sign_Number + 1 where public_classID = #{public_id};
     </update>
     <select id="getOpenClassByClassAll" parameterType="String" resultType="com.training.onlineeduplatform.model.OpenClass">
-        select * from 公开课课程表 where teacherID = (select id from op where username = #{username});
+        select * from 公开课课程表 where teacherID = #{username};
     </select>
 </mapper>
