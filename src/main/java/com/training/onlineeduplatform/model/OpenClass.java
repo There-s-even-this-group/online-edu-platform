@@ -34,4 +34,12 @@ public class OpenClass {
     private String GatherPlace;
     private String ClassStage;
     private String ClassGroup;
+
+    public String getTeacherID() {
+        return teacherID;
+    }
+
+    public void setTeacherID(String teacherID) {
+        this.teacherID = teacherID;
+    }
 }

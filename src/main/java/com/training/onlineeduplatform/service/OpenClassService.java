@@ -17,4 +17,5 @@ public interface OpenClassService {
     int addOpenClass(OpenClass openClass);
     int getLAST_INSERT_ID();
     int baoming(int public_id);
+    List<OpenClass> getOpenClassByClassAll(String username);
 }

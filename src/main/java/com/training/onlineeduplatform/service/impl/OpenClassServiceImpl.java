@@ -52,4 +52,9 @@ public class OpenClassServiceImpl implements OpenClassService {
     public int baoming(int public_id){
         return openClassMapper.baoming(public_id);
     }
+
+    @Override
+    public List<OpenClass> getOpenClassByClassAll(String username){
+        return openClassMapper.getOpenClassByClassAll(username);
+    }
 }

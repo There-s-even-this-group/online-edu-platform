@@ -22,6 +22,18 @@ public class OpenClassController {
     @Autowired
     OpenClassService openClassService;
 
+    @GetMapping (value = "/getOpenClassByClassAll")
+    @RequiresRoles(logical = Logical.OR,value = {"user","admin"})
+    public Map<String, Object> getOpenClassByClassAll(@RequestHeader String token) {
+        Map<String, Object> map = new HashMap<>();
+        String username = JWTUtil.getUsername(token);
+        System.out.println("//////////////////// ："+username);
+        List<OpenClass> list = openClassService.getOpenClassByClassAll(username);
+        map.put("openClass",list);
+        map.put("username",username);
+        return map;
+    }
+
     @PostMapping(value = "/getOpenClassByClassType")
     public Map<String, Object> getOpenClassByClassType(String public_classType){
         Map<String, Object> map = new HashMap<>();
@@ -51,8 +63,10 @@ public class OpenClassController {
     }
 
     @PostMapping(value = "/addOpenClass")
-    public Map<String, Object> addOpenClass(OpenClass openClass){
+    public Map<String, Object> addOpenClass(@RequestHeader String token,OpenClass openClass){
         Map<String, Object> map = new HashMap<>();
+        String username = JWTUtil.getUsername(token);
+        openClass.setTeacherID(username);
         int code = openClassService.addOpenClass(openClass);
         int id = openClassService.getLAST_INSERT_ID();
         map.put("code",code);

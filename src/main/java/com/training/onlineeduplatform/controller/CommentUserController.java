@@ -2,11 +2,11 @@ package com.training.onlineeduplatform.controller;
 
 import com.training.onlineeduplatform.model.CommentUser;
 import com.training.onlineeduplatform.service.CommentUserService;
+import com.training.onlineeduplatform.util.JWTUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +39,10 @@ public class CommentUserController {
     }
 
     @PostMapping(value = "/addComment")
-    public int addComment(CommentUser commentUser){
+    @RequiresRoles(logical = Logical.OR,value = {"user","admin"})
+    public int addComment(@RequestHeader String token, CommentUser commentUser){
+        String username = JWTUtil.getUsername(token);
+        commentUser.setUsername(username);
         return commentUserService.addComment(commentUser);
     }
 
