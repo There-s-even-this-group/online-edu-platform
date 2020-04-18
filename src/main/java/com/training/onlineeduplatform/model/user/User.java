@@ -25,4 +25,6 @@ public class User {
     public Date birthdata;
     public String sign;
     public String icon;
+    public int article;
+    public int curriculum;
 }
