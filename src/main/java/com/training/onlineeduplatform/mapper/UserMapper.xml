@@ -130,4 +130,8 @@
     <select id="getSignNumber" resultType="int">
         select COUNT(*) FROM opSignIn WHERE lastsign = CURDATE();
     </select>
+
+    <select id="getNewArticle" resultType="com.training.onlineeduplatform.model.TfrArticle">
+        select   *   FROM   tfrArticle   order   by   article_date DESC    LIMIT    4;
+    </select>
 </mapper>

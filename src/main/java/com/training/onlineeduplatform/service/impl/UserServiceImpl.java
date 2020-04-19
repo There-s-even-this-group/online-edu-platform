@@ -1,6 +1,7 @@
 package com.training.onlineeduplatform.service.impl;
 
 import com.training.onlineeduplatform.mapper.UserMapper;
+import com.training.onlineeduplatform.model.TfrArticle;
 import com.training.onlineeduplatform.model.user.TeacherInf;
 import com.training.onlineeduplatform.model.user.User;
 import com.training.onlineeduplatform.model.user.UserChangeInf;
@@ -128,4 +129,10 @@ public class UserServiceImpl implements UserService {
     public int getSignNumber() {
         return userMapper.getSignNumber();
     }
+
+    @Override
+    public List<TfrArticle> getNewArticle() {
+        return userMapper.getNewArticle();
+    }
+
 }

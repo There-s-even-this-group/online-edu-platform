@@ -1,5 +1,6 @@
 package com.training.onlineeduplatform.mapper;
 
+import com.training.onlineeduplatform.model.TfrArticle;
 import com.training.onlineeduplatform.model.user.TeacherInf;
 import com.training.onlineeduplatform.model.user.User;
 import com.training.onlineeduplatform.model.user.UserChangeInf;
@@ -123,4 +124,9 @@ public interface UserMapper {
      * 获取当前的签到人数
      */
     int getSignNumber();
+
+    /**
+     * 获取最新文章
+     */
+    List<TfrArticle> getNewArticle();
 }

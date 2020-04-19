@@ -1,6 +1,7 @@
 package com.training.onlineeduplatform.service;
 
 
+import com.training.onlineeduplatform.model.TfrArticle;
 import com.training.onlineeduplatform.model.user.TeacherInf;
 import com.training.onlineeduplatform.model.user.User;
 import com.training.onlineeduplatform.model.user.UserChangeInf;
@@ -121,4 +122,9 @@ public interface UserService {
      * 获取当前的签到人数
      */
     int getSignNumber();
+
+    /**
+     * 获取最新文章
+     */
+    List<TfrArticle> getNewArticle();
 }
