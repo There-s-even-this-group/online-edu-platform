@@ -23,4 +23,5 @@ public class TfrArticle  implements Serializable {
     private int article_visit;
     private int article_comment;
     private int article_collect;
+    private int ban;
 }

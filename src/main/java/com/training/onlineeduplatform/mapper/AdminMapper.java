@@ -1,5 +1,6 @@
 package com.training.onlineeduplatform.mapper;
 
+import com.training.onlineeduplatform.model.TfrArticle;
 import com.training.onlineeduplatform.model.user.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +14,21 @@ import java.util.List;
 
 @Mapper
 public interface AdminMapper {
+
+    /**
+     * 解冻课程资料
+     */
+    int ThawArticle(String article_title);
+
+    /**
+     * 冻结课程资料
+     */
+    int FrozenArticle(String article_title);
+
+    /**
+     * 返回全部托福人课程信息
+     */
+    List<TfrArticle> getAllTfrArticleInf();
 
     /**
      * 管理员添加用户

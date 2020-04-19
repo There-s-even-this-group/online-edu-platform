@@ -1,6 +1,7 @@
 package com.training.onlineeduplatform.service.impl;
 
 import com.training.onlineeduplatform.mapper.AdminMapper;
+import com.training.onlineeduplatform.model.TfrArticle;
 import com.training.onlineeduplatform.model.user.User;
 import com.training.onlineeduplatform.service.AdminService;
 import com.training.onlineeduplatform.service.UserService;
@@ -21,6 +22,21 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
+
+    @Override
+    public int ThawArticle(String article_title) {
+        return adminMapper.ThawArticle(article_title);
+    }
+
+    @Override
+    public int FrozenArticle(String article_title) {
+        return adminMapper.FrozenArticle(article_title);
+    }
+
+    @Override
+    public List<TfrArticle> getAllTfrArticleInf() {
+        return adminMapper.getAllTfrArticleInf();
+    }
 
     @Override
     public int adminAddUser(String username, String password, String email, String role,String sex,String phone) {

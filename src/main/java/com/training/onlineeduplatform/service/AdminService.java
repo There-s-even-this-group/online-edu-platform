@@ -1,5 +1,6 @@
 package com.training.onlineeduplatform.service;
 
+import com.training.onlineeduplatform.model.TfrArticle;
 import com.training.onlineeduplatform.model.user.User;
 
 import java.util.List;
@@ -10,6 +11,21 @@ import java.util.List;
  * @author Zhouyong Tan
  */
 public interface AdminService {
+    /**
+     * 解冻课程
+     */
+    int ThawArticle(String article_title);
+
+
+    /**
+     * 冻结课程
+     */
+    int FrozenArticle(String article_title);
+
+    /**
+     * 返回全部托福人课程信息
+     */
+    List<TfrArticle> getAllTfrArticleInf();
 
     /**
      * 管理员添加用户

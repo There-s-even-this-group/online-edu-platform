@@ -1,6 +1,7 @@
 package com.training.onlineeduplatform.controller;
 
 import com.training.onlineeduplatform.mapper.AdminMapper;
+import com.training.onlineeduplatform.model.TfrArticle;
 import com.training.onlineeduplatform.model.common.ResultMap;
 import com.training.onlineeduplatform.model.user.User;
 import com.training.onlineeduplatform.service.AdminService;
@@ -31,6 +32,47 @@ public class AdminController {
 
     @Autowired
     private  UserService userService;
+
+    /**
+     * 解冻课程
+     */
+    @PostMapping("/ThawArticle_title")
+    public int ThawArticle(@RequestParam("article_title")String article_title){
+        System.out.println(article_title);
+        int code=adminService.ThawArticle(article_title);
+        if (code==1){
+            return code;
+        }else {
+            return 0;
+        }
+    }
+
+    /**
+     * 冻结课程
+     */
+    @PostMapping("/FrozenArticle_title")
+    public int FrozenArticle(@RequestParam("article_title")String article_title){
+        System.out.println(article_title);
+        int code=adminService.FrozenArticle(article_title);
+        if (code==1){
+            return code;
+        }else {
+            return 0;
+        }
+    }
+
+    /**
+     * 获取全部托福人和课程信息
+     *
+     * @return
+     */
+    @GetMapping("/AllTolfInfo")
+    public Map<String,Object> getAllTfrArticleInf(){
+        List<TfrArticle> AllTolf=adminService.getAllTfrArticleInf();
+        Map<String,Object> list=new HashMap<>();
+        list.put("tableData1",AllTolf);
+        return list;
+    }
 
     /**
      * 修改用户头像
