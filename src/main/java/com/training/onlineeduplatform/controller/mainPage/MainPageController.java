@@ -25,7 +25,6 @@ public class MainPageController {
     private ResultMap resultMap;
 
     @GetMapping(value = "/getNewArticle")
-    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public Map<String, Object> getNewArticle() {
         Map<String, Object> map = new HashMap<>();
         return resultMap.code(200).success().message(userService.getNewArticle());

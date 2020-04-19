@@ -75,7 +75,6 @@ public class SignInController {
      * @return
      */
     @GetMapping("/ifSignIn")
-    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
     public ResultMap getLastSign(@RequestHeader String token) {
         resultMap.clear();
         String username = JWTUtil.getUsername(token);
