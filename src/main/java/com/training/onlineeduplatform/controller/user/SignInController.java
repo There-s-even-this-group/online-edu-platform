@@ -102,4 +102,16 @@ public class SignInController {
         String username = JWTUtil.getUsername(token);
         return resultMap.success().message(userService.getFrequency(username));
     }
+
+    @GetMapping("/getSignNumber")
+    @RequiresRoles(logical = Logical.OR, value = {"user","admin"})
+    public ResultMap getSignNumber() {
+        resultMap.clear();
+        int number = userService.getSignNumber();
+        if (number > 9999) {
+            return resultMap.success().code(200).message("9999+");
+        } else {
+            return resultMap.success().code(200).message(userService.getSignNumber());
+        }
+    }
 }
